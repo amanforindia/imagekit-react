@@ -12,18 +12,32 @@ import { fetchEffectiveConnection,
 
 const propsAffectingURL = ["urlEndpoint", "path", "src", "transformation", "transformationPosition", "queryParameters"];
 
+interface IKImageProps {
+    className: string;
+}
+
+interface IKImageState {
+    currentUrl?: string;
+    originalSrc?: string;
+    lqipSrc?: string;
+    originalSrcLoaded: boolean;
+    intersected: boolean;
+    contextOptions: object;
+    observe?: IntersectionObserver;
+}
+
 export class IKImage extends ImageKitComponent {
     imageRef: React.RefObject<HTMLImageElement>;
 
-    state: IKStateType = {
+    state: IKImageState = {
         currentUrl: undefined,
         originalSrcLoaded: false,
         intersected: false,
         contextOptions: {}
     };
 
-    constructor(props: IKPropsType, context: any) {
-        super(props, context);
+    constructor(props: IKImageProps) {
+        super(props);
         const { originalSrc, lqipSrc } = this.getSrc();
         this.imageRef = React.createRef();
         this.state = {
@@ -117,7 +131,7 @@ export class IKImage extends ImageKitComponent {
 
     areObjectsDifferent(prevProps: IKPropsType, newProps: IKPropsType) {
         for (let index = 0; index < propsAffectingURL.length; index++) {
-            if (prevProps[propsAffectingURL[index] as keyof IKPropsType] != newProps[propsAffectingURL[index] as keyof IKPropsType]) {
+            if (prevProps[propsAffectingURL[index] as keyof IKPropsType] !== newProps[propsAffectingURL[index] as keyof IKPropsType]) {
                 return true;
             };
         }

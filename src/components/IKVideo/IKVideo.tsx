@@ -21,7 +21,7 @@ export class IKVideo extends ImageKitComponent {
         contextOptions: {}
     };
 
-    constructor(props: IKPropsType, context: any) {
+    constructor(props: IKPropsType, context) {
         super(props, context);
         const { originalSrc, lqipSrc } = this.getSrc();
         this.state = {

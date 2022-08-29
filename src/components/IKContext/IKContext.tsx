@@ -8,7 +8,7 @@ export const ImageKitContext = createContext<IKContextType | null>(null);
 
 export class IKContext extends ImageKitComponent {
 
-  extractContextOptions(mergedOptions: any) {
+  extractContextOptions(mergedOptions) {
     let result: IKContextType = {
       publicKey: '',
       urlEndpoint: '',

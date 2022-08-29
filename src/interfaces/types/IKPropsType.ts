@@ -1,6 +1,6 @@
-import { IKContextType } from '../IKContextType';
+import { IKLQIP } from './IKLQIP';
 
-export type IKPropsType = IKContextType & {
+export type IKPropsType = {
   className?: string;
   loading?: string;
   alt?: string;
@@ -11,4 +11,5 @@ export type IKPropsType = IKContextType & {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onStart?: (file: File, xhr: XMLHttpRequest) => void;
   xhr?: XMLHttpRequest;
+  lqip?: IKLQIP;
 }

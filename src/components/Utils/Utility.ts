@@ -2,6 +2,7 @@ import ImageKit from 'imagekit-javascript';
 
 import { IKContextType } from '../../interfaces/IKContextType'
 import { IKPropsType } from '../../interfaces/types/IKPropsType';
+import { IKLQIP } from '../../interfaces/types/IKLQIP';
 
 export const divideUrlAndQueryParams = (url: string) => {
     let queryIndex = url.indexOf("?");
@@ -21,7 +22,7 @@ export const getIKElementsCommonOptions = (props: IKPropsType, context: IKContex
         transformation: props.transformation || context.transformation,
         transformationPosition: props.transformationPosition || context.transformationPosition,
         queryParameters: props.queryParameters || context.queryParameters
-    };
+    } as const;
 
     return options
 }
@@ -35,12 +36,12 @@ export const fetchEffectiveConnection = () => {
     }
 }
 
-export const getLqipUrl = (options: any, lqip: any, ikClient: ImageKit) => {
-    const quality = parseInt((lqip.quality || lqip.threshold), 10) || 20;
-    const blur = parseInt((lqip.blur || lqip.blur), 10) || 6;
+export const getLqipUrl = (options, lqip: IKLQIP, ikClient: ImageKit) => {
+    const quality = Math.round(lqip.quality || lqip.threshold || 20);
+    const blur = Math.round(lqip.blur || lqip.blur || 6);
     const newTransformation = options.transformation ? [...options.transformation] : [];
 
-    if (lqip.raw && typeof lqip.raw === "string" && lqip.raw.trim() != "") {
+    if (lqip.raw && typeof lqip.raw === "string" && lqip.raw.trim() !== "") {
         newTransformation.push({
             raw: lqip.raw.trim()
         });
@@ -56,7 +57,7 @@ export const getLqipUrl = (options: any, lqip: any, ikClient: ImageKit) => {
     });
 }
 
-export const getIKElementsUrl = (props: IKPropsType, state: any) => {
+export const getIKElementsUrl = (props: IKPropsType, state) => {
     const {
         intersected,
         originalSrcLoaded,

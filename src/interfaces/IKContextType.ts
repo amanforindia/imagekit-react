@@ -1,10 +1,11 @@
 import ImageKit from 'imagekit-javascript';
+import { IKLQIP } from './types/IKLQIP';
 
 export interface IKContextType {
     publicKey?: string;
     urlEndpoint?: string;
     authenticationEndpoint?: string;
-    lqip?: any;
+    lqip?: IKLQIP;
     path?: string;
     src?: string;
     queryParameters?: { [key: string]: string | number },

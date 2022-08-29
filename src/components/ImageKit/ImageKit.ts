@@ -1,19 +1,23 @@
 import { PureComponent } from 'react';
 import ImageKit from 'imagekit-javascript';
-import { IKContextType } from '../../interfaces/IKContextType'
-import { IKPropsType } from '../../interfaces/types/IKPropsType';
+import { ImageKitContext } from '../IKContext';
 
-export class ImageKitComponent extends PureComponent<IKPropsType> {
-  constructor(props: IKPropsType, context: IKContextType) {
-    super(props, context);
+interface ImageKitComponentProps {
+  urlEndpoint?: string;
+}
+
+export class ImageKitComponent extends PureComponent<ImageKitComponentProps> {
+  constructor(props: ImageKitComponentProps) {
+    super(props);
     this.getContext = this.getContext.bind(this);
   }
+  static contextType = ImageKitContext 
 
   getContext() {
     return this.context || {};
   }
 
-  getIKClient() {
+  getIKClient(): ImageKit {
     const contextOptions = this.getContext();
     if (contextOptions.ikClient) {
       return contextOptions.ikClient;
